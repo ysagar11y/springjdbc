@@ -1,5 +1,7 @@
 package com.springjdbc.Dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -61,6 +63,21 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		Employee emp = this.jdbcTemplate.queryForObject(query, rowMapper,id);
 
 		return emp;
+	}
+
+	public List<Employee> selectAll() {
+		String query = "select * from Employee";
+		List<Employee> emp = this.jdbcTemplate.query(query, new RowMapperImpl());
+		return emp;
+	}
+
+	public void delete(int id) {
+		
+		String query = "delete from Employee where id=?";
+		
+		this.jdbcTemplate.update(query,id);
+		
+		
 	}
 
 }
